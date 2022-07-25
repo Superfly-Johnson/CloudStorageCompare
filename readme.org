@@ -1,0 +1,7 @@
+#+TITLE: Superfly's ExpressJS template
+#+AUTHOR: Superfly Johnson
+#+DESCRIPTION: Yet another ExpressJS template
+#+STARTUP: showeverything
+
+* Description
+This is my personal ExpressJS template for website development.
