@@ -7,11 +7,14 @@ const path = require('path');
 // Configuration
 const config = require('./config.js');
 
-//APplication
+// Application
 var app = express();
 
 // Logger (morgan)
 app.use(morgan('combined'));
+
+// View engine (pug)
+app.set('view engine', 'pug');
 
 // Routes that can't be iterated on
 const uniqueRoutes = [ 'index' ];
