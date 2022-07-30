@@ -21,4 +21,4 @@ class dbconn {
   }
 }
 
-
+module.exports = dbconn;
