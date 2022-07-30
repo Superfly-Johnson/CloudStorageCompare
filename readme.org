@@ -8,5 +8,9 @@ This is my personal ExpressJS template for website development.
 
 ** Database setup on debian
 #+begin_example 
-sudo -u postgres /bin/sh initdb.sh
+sudo -u postgres /bin/sh "-u DB_USERNAME -p DB_PASSWORD -d DATABASE" initdb.sh
 #+end_example
+Where DB_USERNAME corresponds to the database user in postgresql, DB_PASSWORD corresponds to its password and DATABASE is the database.
+Do not forget to make config.js reflect the initial run.
+
+To update the database, you will have to execute
