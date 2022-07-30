@@ -4,9 +4,10 @@
 */
 const ini = require('ini');
 const fs = require('fs');
+const path = require('path');
 
-cfgPath = './config.ini';
-const config = ini.parse(fs.readFileSync(cfgPath, 'utf-8'));
+cfgPath = 'config.ini';
+const config = ini.parse(fs.readFileSync(path.resolve(__dirname, cfgPath), 'utf-8'));
 
 /*
 const server = {
