@@ -36,10 +36,11 @@ BEGIN
 END;
 
 $$ LANGUAGE plpgsql;
-CREATE OR REPLACE FUNCTION AddProductFromCompanyID(company_id integer, p_name varchar(255), storage_amount bigint) RETURNS int AS $$
+CREATE OR REPLACE FUNCTION AddProductFromCompanyName(company_name varchar(255), p_name varchar(255), storage_amount bigint) RETURNS int AS $$
 DECLARE
    ret_id int;
 BEGIN
+    SET company_id = (SELECT company_name FROM COMPANIES WHERE C)
 -- Somehow need to pass a row here...
     INSERT INTO Products(ID,Select(C.ID) FROM Companies WHERE C.ID = company_id,product_name p_name, StorageAmount storage_amount)
     VALUES(DEFAULT,n)
