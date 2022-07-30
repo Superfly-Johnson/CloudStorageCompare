@@ -8,8 +8,5 @@ This is my personal ExpressJS template for website development.
 
 ** Database setup on debian
 #+begin_example 
-sudo -u postgres psql
-CREATE ROLE dbuser WITH LOGIN PASSWORD 'dbpassword';
-CREATE DATABASE db OWNER dbuser;
-\q
+sudo -u postgres /bin/sh initdb.sh
 #+end_example
