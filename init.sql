@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS Companies (
     ID int GENERATED ALWAYS AS IDENTITY,
-    Company_Name varchar(255) NOT NULL
+    Name varchar(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Products (
     ID int GENERATED ALWAYS AS IDENTITY,
     Provider int REFERENCES Companies (ID) ON DELETE CASCADE,
-    Product_Name varchar(255) NOT NULL,
+    Name varchar(255) NOT NULL,
     StorageAmount bigint NOT NULL
 );
 
@@ -43,7 +43,7 @@ DECLARE
 	ret_id	int;
 	c_id	int;
 BEGIN
-    INSERT INTO Products(ID,c_id,product_name,StorageAmount)
+    INSERT INTO Products(ID,c_id,name,StorageAmount)
     VALUES(DEFAULT,(SELECT ID FROM Companies WHERE Name = company_name),p_name,storage_amount)
     ON CONFLICT DO NOTHING
     RETURNING ID INTO ret_id;
