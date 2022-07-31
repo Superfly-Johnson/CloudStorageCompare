@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS Prices (
     CurrUnit CurrUnits
 );
 
+-- Adds a company
 CREATE OR REPLACE FUNCTION AddCompany(n varchar(255)) RETURNS int AS $$
 DECLARE
    ret_id int;
@@ -34,16 +35,16 @@ BEGIN
 
     RETURN ret_id;
 END;
-
 $$ LANGUAGE plpgsql;
+
+-- Adds a Product from a company name.
 CREATE OR REPLACE FUNCTION AddProductFromCompanyName(company_name varchar(255), p_name varchar(255), storage_amount bigint) RETURNS int AS $$
 DECLARE
-   ret_id int;
+	ret_id	int;
+	c_id	int;
 BEGIN
-    SET company_id = (SELECT company_name FROM COMPANIES WHERE C)
--- Somehow need to pass a row here...
-    INSERT INTO Products(ID,Select(C.ID) FROM Companies WHERE C.ID = company_id,product_name p_name, StorageAmount storage_amount)
-    VALUES(DEFAULT,n)
+    INSERT INTO Products(ID,c_id,product_name,StorageAmount)
+    VALUES(DEFAULT,(SELECT ID FROM Companies WHERE Name = company_name),p_name,storage_amount)
     ON CONFLICT DO NOTHING
     RETURNING ID INTO ret_id;
 

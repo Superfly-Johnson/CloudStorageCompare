@@ -13,6 +13,5 @@ conn.query(`SELECT AddCompany($Company)`, [1], (err, res) => {
   if (err) {
 	throw err
   }
-
   console.log('id:', res.rows[0]);
 });

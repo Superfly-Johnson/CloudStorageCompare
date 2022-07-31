@@ -12,21 +12,31 @@
 user=
 password=
 database=
+utest=
 
-while getopts "u:p:d:?" o
+while getopts "u:p:d:t?" o
 do
 	case "$o" in
 		u) user=$OPTARG;;
 		p) password=$OPTARG;;
 		d) database=$OPTARG;;
+		t) utest="true";;
 		[?]) printf "Usage: $0 -u USER -p PASSWORD -d DATABASE \n"
 	esac
 done
 shift $((OPTIND -1))
 
+echo $utest
 echo "Creating role ${user} with password..."
 psql -c "CREATE ROLE ${user} WITH LOGIN PASSWORD '${password}';"
 echo "Creating database ${database} with ${user} as owner..."
 psql -c "CREATE DATABASE ${database} OWNER ${user};"
 echo "Executing the database initiatilization script on database ${database}..."
 psql -f init.sql -d ${database}
+if [ $utest ] ;
+   then
+	   nodejs "./tests/sql.js"
+	   psql -c "DROP DATABASE ${database}"
+fi
+
+
