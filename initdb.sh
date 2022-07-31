@@ -26,13 +26,13 @@ do
 done
 shift $((OPTIND -1))
 
-echo $utest
 echo "Creating role ${user} with password..."
 psql -c "CREATE ROLE ${user} WITH LOGIN PASSWORD '${password}';"
 echo "Creating database ${database} with ${user} as owner..."
 psql -c "CREATE DATABASE ${database} OWNER ${user};"
 echo "Executing the database initiatilization script on database ${database}..."
-psql -f init.sql -d ${database}
+psql -U dbuser -d exampledb -W -h localhost -f init.sql -d ${database}
+
 if [ $utest ] ;
    then
 	   PGUSER=$user \
