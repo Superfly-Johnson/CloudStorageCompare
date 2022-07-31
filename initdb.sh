@@ -35,7 +35,12 @@ echo "Executing the database initiatilization script on database ${database}..."
 psql -f init.sql -d ${database}
 if [ $utest ] ;
    then
-	   nodejs "./tests/sql.js"
+	   PGUSER=$user \
+			 PGHOST=localhost \
+			 PGPASSWORD=$password \
+			 PGDATABASE=$database \
+			 PGPORT=5432 \
+			 nodejs "./tests/sql.js"
 	   psql -c "DROP DATABASE ${database}"
 fi
 
