@@ -3,13 +3,13 @@
 */
 const Pool = require('pg').Pool;
 
-// conn = new dbconn(config.database);
+const pool = new Pool();
 
-const conn = new Pool();
-Company = 'Microsoft';
-conn.query(`SELECT AddCompany($Company)`, [1], (err, res) => {
-  if (err) {
-	throw err
-  }
-  console.log('id:', res.rows[0]);
-});
+Companies = [ 'Microsoft OneDrive', 'Amazon Cloud Drive', 'Apple iCloud', 'pCloud' ];
+Companies.forEach(c => {
+  pool
+	.query("SELECT AddCompany($1)", [ c ])
+	.then(res => console.log('id: ', res))
+	.catch(err =>  setImmediate(() => {
+      throw err;
+}))});
